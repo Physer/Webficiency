@@ -15,4 +15,9 @@ internal class User
     public string? PhoneNumber { get; set; }
     public string? CompanyName { get; set; }
     public string? CompanyCatchPhrase { get; set; }
+
+    public List<Album>? Albums { get; set; }
+    public List<Post>? Posts { get; set; }
+    public List<Comment>? Comments { get; set; }
+    public List<Todo>? Todos { get; set; }
 }
