@@ -16,20 +16,18 @@ public class WebficiencyContext : DbContext
 
     public WebficiencyContext()
     {
-        var folder = Environment.SpecialFolder.LocalApplicationData;
-        var path = Environment.GetFolderPath(folder);
-        _dbPath = Path.Join(path, "webficiency.db");
-    }
-
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
         var configuration = ConfigurationHelper.GetConfiguration();
         if (!bool.TryParse(configuration["InMemoryDatabase"], out var useInMemoryDatabase))
             throw new ArgumentException("Invalid configuration");
-
         if (useInMemoryDatabase)
-            optionsBuilder.UseSqlite("Data Source=:memory:");
+            _dbPath = ":memory:";
         else
-            optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            _dbPath = Path.Join(path, "webficiency.db");
+        }
     }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={_dbPath}");
 }
