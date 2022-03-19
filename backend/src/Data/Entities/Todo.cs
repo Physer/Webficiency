@@ -2,7 +2,13 @@
 
 public class Todo
 {
-    public long Id { get; set; }
-    public string? Title { get; set; }
+    public Todo(string title, bool isCompleted)
+    {
+        Title = title;
+        IsCompleted = isCompleted;
+    }
+
+    public Guid Id { get; set; }
+    public string Title { get; set; }
     public bool IsCompleted { get; set; }
 }

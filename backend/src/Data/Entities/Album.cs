@@ -2,8 +2,13 @@
 
 public class Album
 {
-    public Guid Id { get; set; }
-    public string? Title { get; set; }
+    public Album(string title)
+    {
+        Title = title;
+    }
 
-    public List<Photo>? Photos { get; set; }
+    public Guid Id { get; set; }
+    public string Title { get; set; }
+
+    public List<Photo> Photos { get; set; } = new();
 }
