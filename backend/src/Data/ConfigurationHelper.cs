@@ -15,5 +15,19 @@ public static class ConfigurationHelper
         _configuration = configurationBuilder.Build();
     }
 
-    public static IConfiguration GetConfiguration() => _configuration;
+    public static string GetSqliteConnectionString()
+    {
+        var dbPath = "Data Source=";
+        if (!bool.TryParse(_configuration["InMemoryDatabase"], out var useInMemoryDatabase))
+            throw new ArgumentException("Invalid configuration");
+        if (useInMemoryDatabase)
+            dbPath += ":memory:";
+        else
+        {
+            var folder = Environment.SpecialFolder.LocalApplicationData;
+            var path = Environment.GetFolderPath(folder);
+            dbPath += Path.Join(path, "webficiency.db");
+        }
+        return dbPath;
+    }
 }

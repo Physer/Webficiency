@@ -5,7 +5,7 @@ namespace Data;
 
 public class WebficiencyContext : DbContext
 {
-    private readonly string _dbPath;
+    private readonly string _connectionString;
 
     public DbSet<User>? Users { get; set; }
     public DbSet<Album>? Albums { get; set; }
@@ -16,18 +16,8 @@ public class WebficiencyContext : DbContext
 
     public WebficiencyContext()
     {
-        var configuration = ConfigurationHelper.GetConfiguration();
-        if (!bool.TryParse(configuration["InMemoryDatabase"], out var useInMemoryDatabase))
-            throw new ArgumentException("Invalid configuration");
-        if (useInMemoryDatabase)
-            _dbPath = ":memory:";
-        else
-        {
-            var folder = Environment.SpecialFolder.LocalApplicationData;
-            var path = Environment.GetFolderPath(folder);
-            _dbPath = Path.Join(path, "webficiency.db");
-        }
+        _connectionString = ConfigurationHelper.GetSqliteConnectionString();
     }
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite($"Data Source={_dbPath}");
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite(_connectionString);
 }
