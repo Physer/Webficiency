@@ -26,4 +26,16 @@ public class WebficiencyContext : DbContext
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite(_connectionString);
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>().HasOne(u => u.Address).WithOne(a => a.User);
+        modelBuilder.Entity<User>().HasOne(u => u.Company).WithOne(c => c.User);
+        modelBuilder.Entity<User>().HasMany(u => u.Albums).WithOne(a => a.User);
+        modelBuilder.Entity<User>().HasMany(u => u.Posts).WithOne(p => p.User);
+        modelBuilder.Entity<User>().HasMany(u => u.Comments).WithOne(c => c.User);
+        modelBuilder.Entity<User>().HasMany(u => u.Todos).WithOne(t => t.User);
+
+        modelBuilder.Entity<Album>().HasMany(a => a.Photos).WithOne(p => p.Album);
+    }
 }

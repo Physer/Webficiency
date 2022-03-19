@@ -20,5 +20,5 @@ public class User
     public List<Todo> Todos { get; set; } = new();
 
     public Address Address { get; set; } = null!;
-    public Company? Company { get; set; } = null!;
+    public Company Company { get; set; } = null!;
 }

@@ -17,4 +17,7 @@ public class Photo
     public string Title { get; set; }
     public string Url { get; set; }
     public string? ThumbnailUrl { get; set; }
+
+    public Guid AlbumId { get; set; }
+    public Album Album { get; set; } = null!;
 }
