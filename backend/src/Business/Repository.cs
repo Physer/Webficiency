@@ -16,10 +16,10 @@ public class Repository : IRepository
         _mapper = mapper;
     }
 
-    public IEnumerable<T> GetAll<T>() where T : class, new() => _webficiencyContext.Set<T>().AsNoTracking().ToList();
+    public IEnumerable<T> GetAll<T>() where T : class => _webficiencyContext.Set<T>().AsNoTracking().ToList();
 }
 
 public interface IRepository
 {
-    IEnumerable<T> GetAll<T>() where T : class, new();
+    IEnumerable<T> GetAll<T>() where T : class;
 }

@@ -7,6 +7,6 @@ public static class DependencyConfigurator
 {
     public static void ConfigureDataDependencies(this IServiceCollection services)
     {
-        services.AddDbContext<WebficiencyContext>(options => options.UseSqlite(ConfigurationHelper.GetSqliteConnectionString()));
+        services.AddDbContext<WebficiencyContext>(options => options.UseSqlite(ConfigurationHelper.Instance.GetSqliteConnectionString()));
     }
 }

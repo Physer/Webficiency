@@ -16,7 +16,13 @@ public class WebficiencyContext : DbContext
 
     public WebficiencyContext()
     {
-        _connectionString = ConfigurationHelper.GetSqliteConnectionString();
+        _connectionString = ConfigurationHelper.Instance.GetSqliteConnectionString();
+    }
+
+    public WebficiencyContext(DbContextOptions<WebficiencyContext> options)
+        : base(options)
+    {
+        _connectionString = ConfigurationHelper.Instance.GetSqliteConnectionString();
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite(_connectionString);
