@@ -10,5 +10,7 @@ public static class DependencyConfigurator
         services.ConfigureDataDependencies();
 
         services.AddScoped<IRepository, Repository>();
+
+        services.AddAutoMapper(typeof(DependencyConfigurator));
     }
 }
