@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Business.Models;
 using Data;
 using Microsoft.EntityFrameworkCore;
 
@@ -9,17 +10,17 @@ public class Repository : IRepository
     private readonly IMapper _mapper;
     private readonly WebficiencyContext _webficiencyContext;
 
-    public Repository(WebficiencyContext webficiencyContext, 
+    public Repository(WebficiencyContext webficiencyContext,
         IMapper mapper)
     {
         _webficiencyContext = webficiencyContext;
         _mapper = mapper;
     }
 
-    public IEnumerable<T> GetAll<T>() where T : class => _webficiencyContext.Set<T>().AsNoTracking().ToList();
+    public IEnumerable<User> GetUsers() => _mapper.Map<IEnumerable<User>>(_webficiencyContext.Users?.AsNoTracking()?.ToList());
 }
 
 public interface IRepository
 {
-    IEnumerable<T> GetAll<T>() where T : class;
+    IEnumerable<User> GetUsers();
 }

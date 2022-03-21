@@ -21,7 +21,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 app.MapGet("/users", (IRepository repository) => {
-    return repository.GetAll<User>();
+    return repository.GetUsers();
 });
 
 app.Run();
