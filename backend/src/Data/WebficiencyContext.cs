@@ -5,8 +5,6 @@ namespace Data;
 
 public class WebficiencyContext : DbContext
 {
-    private readonly string _connectionString;
-
     public DbSet<User>? Users { get; set; }
     public DbSet<Album>? Albums { get; set; }
     public DbSet<Comment>? Comments { get; set; }
@@ -14,18 +12,10 @@ public class WebficiencyContext : DbContext
     public DbSet<Post>? Posts { get; set; }
     public DbSet<Todo>? Todos { get; set; }
 
-    public WebficiencyContext()
-    {
-        _connectionString = ConfigurationHelper.Instance.GetSqliteConnectionString();
-    }
-
     public WebficiencyContext(DbContextOptions<WebficiencyContext> options)
-        : base(options)
-    {
-        _connectionString = ConfigurationHelper.Instance.GetSqliteConnectionString();
-    }
+        : base(options) => Database.EnsureCreated();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite(_connectionString);
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) => optionsBuilder.UseSqlite(ConfigurationHelper.Instance.GetSqliteConnectionString());
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
