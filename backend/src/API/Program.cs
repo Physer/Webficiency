@@ -1,5 +1,4 @@
 using Business;
-using Business.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,7 +7,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.ConfigureBusinessDependencies();
+builder.Services.ConfigureBusinessDependencies(builder.Configuration);
 
 var app = builder.Build();
 
