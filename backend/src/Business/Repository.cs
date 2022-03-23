@@ -18,7 +18,11 @@ public class Repository : IRepository
     }
 
     public IEnumerable<User> GetUsers() => _mapper.Map<IEnumerable<User>>(_webficiencyContext.Users?.AsNoTracking()?.ToList());
-    public void SaveUsers(IEnumerable<User> users) => _webficiencyContext.Users?.AddRange(_mapper.Map<IEnumerable<Data.Entities.User>>(users));
+    public void SaveUsers(IEnumerable<User> users)
+    {
+        _webficiencyContext.Users?.AddRange(_mapper.Map<IEnumerable<Data.Entities.User>>(users));
+        _webficiencyContext.SaveChanges();
+    }
 }
 
 public interface IRepository
