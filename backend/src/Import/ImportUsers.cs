@@ -1,4 +1,5 @@
 using Business;
+using Business.External;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Logging;
 
