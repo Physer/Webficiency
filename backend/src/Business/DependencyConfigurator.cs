@@ -1,4 +1,5 @@
 ﻿using Business.External;
+using Business.Generation;
 using Data;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,7 @@ public static class DependencyConfigurator
         });
 
         services.AddScoped<IRepository, Repository>();
+        services.AddScoped<IDataGenerator, DataGenerator>();
 
         services.AddAutoMapper(typeof(DependencyConfigurator));
     }
